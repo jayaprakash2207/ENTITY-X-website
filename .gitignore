@@ -1,0 +1,9 @@
+node_modules/
+backend/.env
+database/entityx.db
+database/entityx.db-shm
+database/entityx.db-wal
+*.log
+.DS_Store
+dist/
+.netlify/

@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: entityx-website
+    env: node
+    plan: free
+    # Since the root package.json has 'npm start' which goes into the backend, we can build and run from root.
+    buildCommand: npm install && cd backend && npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 4000
+      - key: ALLOWED_ORIGINS
+        # Allow your custom domain
+        value: https://entityx.app,https://www.entityx.app
+      - key: ADMIN_API_KEY
+        generateValue: true

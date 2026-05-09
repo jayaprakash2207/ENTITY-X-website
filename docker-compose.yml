@@ -1,0 +1,54 @@
+version: '3.9'
+
+services:
+  # ── Backend API ──
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: entityx-backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      ALLOWED_ORIGINS: https://entityx.app,https://www.entityx.app
+      ADMIN_API_KEY: ${ADMIN_API_KEY}
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_SECURE: ${SMTP_SECURE}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+      EMAIL_FROM: ${EMAIL_FROM}
+      EMAIL_NOTIFY: ${EMAIL_NOTIFY}
+    volumes:
+      - ./database:/app/database         # persist SQLite DB
+      - ./frontend:/app/frontend:ro      # serve static files
+    ports:
+      - "4000:4000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:4000/api/health', r => process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # ── Nginx reverse proxy (production only) ──
+  nginx:
+    image: nginx:alpine
+    container_name: entityx-nginx
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/entityx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./frontend/public:/var/www/entityx/frontend/public:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    profiles:
+      - production
+
+volumes:
+  database:
