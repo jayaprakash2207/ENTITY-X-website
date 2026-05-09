@@ -1,265 +1,291 @@
-# Entity X — Website Stack
-
-Complete website for [entityx.app](https://entityx.app) — the landing page for the Entity X digital forensics AI platform.
+<div align="center">
 
 ```
-╔══════════════════════════════════════════════════════════════╗
-║  Frontend (HTML/CSS/Three.js)  ←→  Backend (Node/Express)   ║
-║  Served by Express static            API Routes:            ║
-║                                       /api/downloads        ║
-║                                       /api/contact          ║
-║                                       /api/analytics        ║
-║                                       /api/waitlist         ║
-║                                       /api/admin            ║
-║                                       /api/health           ║
-║                              ←→  SQLite Database            ║
-╚══════════════════════════════════════════════════════════════╝
+███████╗███╗   ██╗████████╗██╗████████╗██╗   ██╗    ██╗  ██╗
+██╔════╝████╗  ██║╚══██╔══╝██║╚══██╔══╝╚██╗ ██╔╝    ╚██╗██╔╝
+█████╗  ██╔██╗ ██║   ██║   ██║   ██║    ╚████╔╝      ╚███╔╝ 
+██╔══╝  ██║╚██╗██║   ██║   ██║   ██║     ╚██╔╝       ██╔██╗ 
+███████╗██║ ╚████║   ██║   ██║   ██║      ██║        ██╔╝ ██╗
+╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚═╝   ╚═╝      ╚═╝        ╚═╝  ╚═╝
+```
+
+**Digital Forensics AI Platform — Official Website**
+
+[![Live](https://img.shields.io/badge/LIVE-entityx.app-00d4ff?style=for-the-badge&logo=netlify&logoColor=white)](https://entityx.app)
+[![Netlify](https://img.shields.io/badge/Deployed_on-Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://app.netlify.com/projects/entityx-website)
+[![Supabase](https://img.shields.io/badge/Database-Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-ffd700?style=for-the-badge)](LICENSE)
+
+[![Three.js](https://img.shields.io/badge/Three.js-r128-black?style=flat-square&logo=three.js)](https://threejs.org)
+[![GSAP](https://img.shields.io/badge/GSAP-3.12-88CE02?style=flat-square)](https://greensock.com/gsap/)
+[![Node.js](https://img.shields.io/badge/Node.js-18-339933?style=flat-square&logo=nodedotjs&logoColor=white)](https://nodejs.org)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Supabase-4169E1?style=flat-square&logo=postgresql&logoColor=white)](https://supabase.com)
+
+<br/>
+
+> *Silently wraps a live browser in a real-time AI monitoring layer — detecting deepfakes, AI-generated content, and misinformation as you browse.*
+
+</div>
+
+---
+
+## ✦ Live Demo
+
+| | |
+|---|---|
+| 🌐 **Website** | [https://entityx.app](https://entityx.app) |
+| 🔧 **API Health** | [https://entityx.app/api/health](https://entityx.app/api/health) |
+| 💾 **Download** | [Latest Release on GitHub](https://github.com/jayaprakash2207/ENTITY-X/releases/latest) |
+
+---
+
+## ✦ Architecture
+
+```
+╔══════════════════════════════════════════════════════════════════════╗
+║                        entityx.app (Netlify CDN)                     ║
+╠══════════════════════════════╦═══════════════════════════════════════╣
+║   FRONTEND                   ║   BACKEND (Serverless)                ║
+║   ─────────────────────────  ║   ────────────────────────────────    ║
+║   frontend/public/           ║   netlify/functions/api.js            ║
+║   ├── index.html             ║   ├── POST  /api/downloads/track      ║
+║   │   ├── Three.js 3D scene  ║   ├── GET   /api/downloads/latest     ║
+║   │   ├── GSAP animations    ║   ├── POST  /api/contact              ║
+║   │   ├── 5 orbital rings    ║   ├── POST  /api/analytics/pageview   ║
+║   │   ├── 800 particles      ║   ├── POST  /api/analytics/event      ║
+║   │   └── 8 feature cards    ║   ├── POST  /api/waitlist             ║
+║                               ║   ├── GET   /api/admin/*  🔒         ║
+║                               ║   └── GET   /api/health              ║
+║                               ║                                       ║
+║                               ║   DATABASE (Supabase / PostgreSQL)    ║
+║                               ║   ────────────────────────────────    ║
+║                               ║   downloads · contacts · waitlist     ║
+║                               ║   page_views · events · release_cache ║
+╚══════════════════════════════╩═══════════════════════════════════════╝
 ```
 
 ---
 
-## Project Structure
+## ✦ Features
+
+| Layer | Technology | Purpose |
+|---|---|---|
+| **3D Scene** | Three.js r128 | Holographic icosahedra, 5 orbital rings, 800 particles, orbiting data nodes, grid floor |
+| **Animations** | GSAP 3.12 + ScrollTrigger | Scroll-linked camera transitions, staggered reveals, counter animations |
+| **Backend** | Netlify Functions (Node 18) | Serverless API — zero cold-start overhead via esbuild bundler |
+| **Database** | Supabase (PostgreSQL) | Downloads, contacts, waitlist, analytics, GitHub release cache |
+| **Email** | Nodemailer | Contact form notifications |
+| **Security** | API Key auth | Admin routes protected via `X-Admin-Key` header |
+
+### Detection Capabilities (8 Threat Vectors)
+```
+ 01  🔵  IMAGE DEEPFAKES     ViT 99.3% · SwinV2 · UniversalFakeDetect ensemble
+ 02  🔷  VIDEO DETECTION     Frame-by-frame AI-generated footage analysis
+ 03  🩷  AUDIO DETECTION     Voice cloning + synthetic audio via RNN + spectral analysis
+ 04  🔴  AI TEXT DETECTION   RoBERTa classifier + statistical burstiness
+ 05  🟦  ARTICLE FORENSICS   Gemini 2.0 Flash credibility + bias analysis
+ 06  🟡  LEGAL AI ENGINE     Auto-complaint generation · DeepSeek R1 legal chat
+ 07  🟢  REAL-TIME ALERTS    Silent background monitoring + instant alert toasts
+ 08  🟣  THREAT INTELLIGENCE Domain intel · live threat map · case management
+```
+
+---
+
+## ✦ Project Structure
 
 ```
-entityx-website/
-├── frontend/
+ENTITY-X-website/
+│
+├── 📄 netlify.toml                 ← Build config, redirects, function bundler
+├── 📄 supabase-schema.sql          ← Run once in Supabase SQL Editor to init DB
+├── 📄 package.json                 ← Root deps (supabase-js, nodemailer, validator)
+│
+├── 📁 frontend/
 │   └── public/
-│       └── index.html          ← Landing page (Three.js 3D, full UI)
+│       └── index.html              ← Full SPA (Three.js · GSAP · Font Awesome)
 │
-├── backend/
-│   ├── server.js               ← Express app entry point
-│   ├── package.json
-│   ├── .env.example            ← Copy to .env and fill in values
+├── 📁 netlify/
+│   └── functions/
+│       └── api.js                  ← All 14 API endpoints in one serverless function
+│
+├── 📁 backend/                     ← Legacy Express server (Render deployment)
+│   ├── server.js
+│   ├── .env.example
 │   ├── Dockerfile
-│   ├── config/
-│   │   └── database.js         ← SQLite connection + schema init
-│   ├── routes/
-│   │   ├── downloads.js        ← Download tracking + GitHub release fetch
-│   │   ├── contact.js          ← Contact form with email
-│   │   ├── analytics.js        ← Page views + UI event tracking
-│   │   ├── waitlist.js         ← macOS/mobile waitlist signups
-│   │   ├── admin.js            ← Protected admin dashboard API
-│   │   └── health.js           ← Health check
-│   ├── middleware/
-│   │   └── adminAuth.js        ← API key auth for admin routes
-│   └── services/
-│       └── mailer.js           ← Nodemailer email service
+│   ├── routes/                     ← downloads · contact · analytics · waitlist · admin
+│   ├── middleware/adminAuth.js
+│   └── services/mailer.js
 │
-├── database/
-│   ├── migrate.js              ← Migration runner
-│   ├── seed.js                 ← Demo data seeder
-│   ├── entityx.db              ← SQLite DB file (created on first run)
-│   └── migrations/
-│       └── 001_initial_schema.sql
+├── 📁 database/
+│   ├── migrate.js
+│   └── migrations/001_initial_schema.sql
 │
-├── nginx/
-│   └── entityx.conf            ← Production Nginx config
-│
-├── scripts/
-│   └── setup.sh                ← First-time setup script
-│
-└── docker-compose.yml          ← Docker Compose (dev + prod)
+├── 📁 nginx/entityx.conf           ← Production Nginx config
+├── 📁 scripts/setup.sh             ← First-time setup
+└── 📄 docker-compose.yml
 ```
 
 ---
 
-## Quick Start (Local Development)
+## ✦ Quick Start (Local)
 
-### 1. Run Setup
 ```bash
-cd entityx-website
-chmod +x scripts/setup.sh
-./scripts/setup.sh
-```
+# 1. Clone
+git clone https://github.com/jayaprakash2207/ENTITY-X-website.git
+cd ENTITY-X-website
 
-### 2. Configure Environment
-```bash
-# Edit backend/.env
+# 2. Install dependencies
+npm install
+
+# 3. Set environment variables
 cp backend/.env.example backend/.env
-nano backend/.env
+# Edit backend/.env — minimum required:
+#   ADMIN_API_KEY=your_strong_random_key
+#   SUPABASE_URL=https://xxxx.supabase.co
+#   SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+
+# 4. Set up Supabase database
+#    → Open supabase-schema.sql in Supabase SQL Editor and run it
+
+# 5. Serve the frontend locally
+npx serve frontend/public
+# → http://localhost:3000
 ```
 
-Minimum required config:
-```env
-PORT=4000
-NODE_ENV=development
-ADMIN_API_KEY=your_strong_random_key_here
-```
+---
 
-### 3. Start the Backend
+## ✦ Netlify Deployment
+
+### One-click CLI deploy
 ```bash
-cd backend
-npm run dev          # development (auto-reload)
-# or
-npm start            # production
+npm install -g netlify-cli
+netlify login
+netlify deploy --prod --dir frontend/public --site <your-site-id>
 ```
 
-### 4. Open in Browser
-```
-http://localhost:4000
-```
+### Environment Variables (set in Netlify dashboard)
+| Variable | Description |
+|---|---|
+| `SUPABASE_URL` | Your Supabase project URL |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (keep secret) |
+| `ADMIN_API_KEY` | Strong random key for admin API access |
+| `SMTP_HOST` | SMTP server (optional — for contact emails) |
+| `SMTP_USER` | SMTP username |
+| `SMTP_PASS` | SMTP password / app password |
+| `EMAIL_NOTIFY` | Email address to receive contact notifications |
 
----
-
-## API Endpoints
-
-### Downloads
-| Method | Path                       | Description                        |
-|--------|----------------------------|------------------------------------|
-| GET    | /api/downloads/latest      | Latest GitHub release info (cached)|
-| POST   | /api/downloads/track       | Track a download click             |
-| GET    | /api/downloads/stats       | Public download stats              |
-
-### Contact
-| Method | Path                       | Description                        |
-|--------|----------------------------|------------------------------------|
-| POST   | /api/contact               | Submit contact form                |
-| GET    | /api/contact/types         | Get available contact types        |
-
-### Analytics
-| Method | Path                       | Description                        |
-|--------|----------------------------|------------------------------------|
-| POST   | /api/analytics/pageview    | Track a page view                  |
-| POST   | /api/analytics/event       | Track a UI event                   |
-| GET    | /api/analytics/summary     | Public analytics summary           |
-
-### Waitlist
-| Method | Path                       | Description                        |
-|--------|----------------------------|------------------------------------|
-| POST   | /api/waitlist              | Join waitlist                      |
-| GET    | /api/waitlist/count        | Waitlist counts by platform        |
-
-### Admin  *(requires `X-Admin-Key` header)*
-| Method | Path                       | Description                        |
-|--------|----------------------------|------------------------------------|
-| GET    | /api/admin/dashboard       | Full dashboard stats               |
-| GET    | /api/admin/contacts        | List contacts (filterable)         |
-| PATCH  | /api/admin/contacts/:id    | Update contact status              |
-| GET    | /api/admin/waitlist        | Full waitlist                      |
-| GET    | /api/admin/downloads       | Paginated download log             |
-
-### Health
-| Method | Path                       | Description                        |
-|--------|----------------------------|------------------------------------|
-| GET    | /api/health                | Service health check               |
-
----
-
-## Database Schema
-
-| Table           | Purpose                                    |
-|-----------------|--------------------------------------------|
-| `downloads`     | Every download button click log            |
-| `contacts`      | Contact form submissions                   |
-| `waitlist`      | macOS / Linux / Mobile / Extension signups |
-| `page_views`    | Website page visit tracking                |
-| `events`        | UI interaction events (clicks, scrolls)    |
-| `admins`        | Admin user accounts                        |
-| `release_cache` | GitHub API response cache (1hr TTL)        |
-
----
-
-## Frontend Integration
-
-The landing page calls these APIs automatically:
-
-```javascript
-// Track download button clicks
-fetch('/api/downloads/track', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ platform: 'windows', version: 'latest' })
-});
-
-// Show real version from GitHub releases
-const { version, download_url } = await fetch('/api/downloads/latest').then(r=>r.json());
-
-// Track page view on load
-fetch('/api/analytics/pageview', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ path: '/', referer: document.referrer, session_id: sid })
-});
+### Database Setup
+```sql
+-- Run supabase-schema.sql in your Supabase SQL Editor
+-- Creates: downloads, contacts, waitlist, page_views, events, release_cache
 ```
 
 ---
 
-## Production Deployment
+## ✦ API Reference
 
-### Option 1: Docker Compose
+### Public Endpoints
+
+```http
+GET  /api/health                    → Service + database status
+GET  /api/downloads/latest          → Latest GitHub release (cached 1hr)
+GET  /api/downloads/stats           → Total download count
+POST /api/downloads/track           → Log a download click
+POST /api/contact                   → Submit contact / support message
+GET  /api/contact/types             → Available message types
+POST /api/analytics/pageview        → Track page visit
+POST /api/analytics/event           → Track UI click / interaction
+GET  /api/analytics/summary         → Aggregated public stats
+POST /api/waitlist                  → Join macOS / Linux / mobile waitlist
+GET  /api/waitlist/count            → Waitlist counts by platform
+```
+
+### Admin Endpoints *(require `X-Admin-Key` header)*
+
+```http
+GET   /api/admin/dashboard          → Full stats overview
+GET   /api/admin/contacts           → Contact submissions (filter by status)
+PATCH /api/admin/contacts/:id       → Update contact status
+GET   /api/admin/waitlist           → Full waitlist entries
+GET   /api/admin/downloads          → Paginated download log
+```
+
+**Example:**
 ```bash
-# Set environment variables
-cp backend/.env.example backend/.env
-# Edit .env with production values
+# Check dashboard
+curl -H "X-Admin-Key: YOUR_KEY" https://entityx.app/api/admin/dashboard | jq
 
-# Build and start
-docker-compose up -d
+# Mark contact as replied
+curl -X PATCH \
+  -H "X-Admin-Key: YOUR_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"status":"replied"}' \
+  https://entityx.app/api/admin/contacts/1
+```
 
-# With Nginx (production profile)
+---
+
+## ✦ Database Schema
+
+```sql
+downloads     → ip · user_agent · platform · version · country · referer · created_at
+contacts      → name · email · subject · message · type · status · ip · created_at
+waitlist      → email · platform · name · created_at  [UNIQUE email+platform]
+page_views    → path · referer · user_agent · ip · session_id · created_at
+events        → event_type · element · page · session_id · ip · meta · created_at
+release_cache → version · tag_name · download_url · size_bytes · release_notes · fetched_at
+```
+
+---
+
+## ✦ Frontend Tech Stack
+
+```
+Three.js r128     Holographic icosahedra · orbital rings · particle field · grid floor
+GSAP 3.12         ScrollTrigger · ScrollToPlugin · camera state transitions
+Font Awesome 6    Feature card icons
+Orbitron          Display / heading font
+Rajdhani          Body font
+Share Tech Mono   Monospace / code font
+```
+
+**CSS Features:**
+- Glassmorphism feature cards with per-card accent color (`--ca` CSS variable)
+- Glitch animation on hero title with chromatic aberration
+- Scan beam overlay · HUD corner brackets · neon flicker effects
+- 3D card tilt on hover (perspective + rotateX/Y via JS)
+- Animated stat counters on page load
+
+---
+
+## ✦ Legacy Docker Deployment
+
+```bash
+# Development
+docker-compose up
+
+# Production (with Nginx)
 docker-compose --profile production up -d
 ```
 
-### Option 2: Manual (VPS/Ubuntu)
-```bash
-# Install Node 20
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt-get install -y nodejs
-
-# Clone and setup
-git clone https://github.com/jayaprakash2207/ENTITY-X-website.git
-cd entityx-website
-./scripts/setup.sh
-
-# Start with PM2
-npm install -g pm2
-pm2 start backend/server.js --name entityx-website
-pm2 save && pm2 startup
-```
-
-### Option 3: Railway / Render / Fly.io
-- Set all environment variables in the platform dashboard
-- Point build command to `cd backend && npm install`
-- Point start command to `cd backend && node server.js`
-
 ---
 
-## Email Setup (Optional but Recommended)
+## ✦ License
 
-For Gmail:
-1. Enable 2FA on your Google account
-2. Create an App Password at https://myaccount.google.com/apppasswords
-3. In `.env`:
-```env
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_SECURE=false
-SMTP_USER=your@gmail.com
-SMTP_PASS=your_16_char_app_password
-EMAIL_FROM=Entity X <noreply@entityx.app>
-EMAIL_NOTIFY=your_personal@email.com
 ```
+MIT License — © 2026 Jayaprakash A R
 
-If `SMTP_HOST` is not set, emails are printed to the console — useful for development.
-
----
-
-## Admin Dashboard
-
-Query the admin API directly with curl or any HTTP client:
-
-```bash
-# Dashboard stats
-curl -H "X-Admin-Key: your_key" http://localhost:4000/api/admin/dashboard | jq
-
-# List open contacts
-curl -H "X-Admin-Key: your_key" "http://localhost:4000/api/admin/contacts?status=open" | jq
-
-# Mark contact as replied
-curl -X PATCH -H "X-Admin-Key: your_key" -H "Content-Type: application/json" \
-  -d '{"status":"replied"}' http://localhost:4000/api/admin/contacts/1 | jq
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software.
 ```
 
 ---
 
-## License
-MIT © 2026 Jayaprakash A R
+<div align="center">
+
+**[entityx.app](https://entityx.app)** · **[GitHub](https://github.com/jayaprakash2207/ENTITY-X)** · **[Releases](https://github.com/jayaprakash2207/ENTITY-X/releases)**
+
+*Built with Three.js · GSAP · Netlify Functions · Supabase*
+
+</div>
